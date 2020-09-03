@@ -564,6 +564,22 @@ class App extends React.Component {
 		}
 	}
 
+	quickLinks = [
+		{
+			title: "Schedule Change (Due Sept. 8th)",
+			url:
+				"https://hazen.rentonschools.us/counseling/requesting-a-schedule-change-for-1st-trimester",
+		},
+		{
+			title: "Renton Canvas",
+			url: "https://rentonschools.instructure.com/",
+		},
+		{
+			title: "Hazen Website",
+			url: "https://hazen.rentonschools.us/",
+		},
+	];
+
 	render() {
 		return (
 			<Layout
@@ -594,9 +610,16 @@ class App extends React.Component {
 											<div className="user-container">
 												<h1 className="user-welcome">
 													Welcome
-													{this.state.myName !== ""
-														? ", " + this.state.myName
-														: ""}
+													{this.state.myName !== "" ? (
+														<>
+															,{" "}
+															<span className="name-underline">
+																{this.state.myName}
+															</span>
+														</>
+													) : (
+														""
+													)}
 													!
 													<span
 														className="user-welcomeEmoji"
@@ -787,6 +810,29 @@ class App extends React.Component {
 																	</p>
 																</Button>
 															)}
+														</div>
+														<div className="user-leftSection ">
+															<div className="user-leftSection-titleContainer">
+																<h2 className="user-leftSection-title">
+																	Quick Links
+																</h2>
+															</div>
+															{this.quickLinks.map((link) => (
+																<p
+																	style={{
+																		fontSize: "1.1em",
+																		marginBottom: "0.25em",
+																	}}
+																>
+																	<a
+																		href={link.url}
+																		target="_blank"
+																		rel="noopener noreferrer"
+																	>
+																		{link.title}
+																	</a>
+																</p>
+															))}
 														</div>
 														<div className="user-leftSection ">
 															<div className="user-leftSection-titleContainer">

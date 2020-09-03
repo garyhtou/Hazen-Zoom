@@ -51,7 +51,7 @@ class Home extends React.Component {
 					<div className="home-titleContainer">
 						<h1 className="home-title">Hazen Zoom</h1>
 						<h3>
-							Hate scrolling through the Hazen's website to find your Zoom
+							Tired of scrolling through the Hazen's website to find your Zoom
 							links?
 							<br />
 							Get your own personalized dashboard. Let's go!

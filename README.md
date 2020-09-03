@@ -27,3 +27,9 @@ Firebase Realtime Database rules:
 }
 
 ```
+
+## Ideas
+
+Clubs as a period
+Club announcements/info
+News - https://hazen.rentonschools.us/our-school/hazen-news

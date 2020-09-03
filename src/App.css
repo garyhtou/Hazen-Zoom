@@ -118,7 +118,6 @@
 	position: absolute;
 	top: 4vh;
 	right: 4vh;
-	/* background-color: #304efa; */
 	border-radius: 100%;
 	transition: transform 0.15s ease;
 }
