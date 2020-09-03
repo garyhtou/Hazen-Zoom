@@ -54,8 +54,35 @@ class Home extends React.Component {
 							Tired of scrolling through the Hazen's website to find your Zoom
 							links?
 							<br />
-							Get your own personalized dashboard. Let's go!
+							Get your own personalized dashboard with all your links in one
+							place. Let's go!
 						</h3>
+						<a
+							href={
+								window.location.protocol +
+								"//" +
+								window.location.hostname +
+								(window.location.port ? ":" + window.location.port : "") +
+								"/" +
+								"demo"
+							}
+							target="_blank"
+							rel="noopener noreferrer"
+							onClick={function () {
+								firebase.analytics().logEvent("to_demo", {
+									location: "home_top",
+								});
+							}}
+						>
+							<h3
+								style={{
+									fontSize: "1.5em",
+									color: "#304EFA",
+								}}
+							>
+								Demo
+							</h3>
+						</a>
 					</div>
 					<div className="home-regSection">
 						<div className="home-regContainer">

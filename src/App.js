@@ -80,7 +80,6 @@ class App extends React.Component {
 		"🏝️",
 		"🗿",
 		"🗽",
-		"🗼",
 		"🌄",
 		"🏜️",
 		"🌋",
@@ -530,7 +529,7 @@ class App extends React.Component {
 					);
 					var currentDate = moment(new Date()).add(this.timeOffset, "minutes");
 					// FOR TESTING ONLY
-					// var currentDate = moment("2020-09-02 10:30", "YYYY-MM-DD HH:mm").add(
+					// var currentDate = moment("2020-09-03 16:30", "YYYY-MM-DD HH:mm").add(
 					// 	this.timeOffset,
 					// 	"minutes"
 					// );
@@ -603,9 +602,7 @@ class App extends React.Component {
 									{!this.state.error ? (
 										<>
 											<Helmet>
-												<title>
-													Hazen Zoom - {window.location.pathname.split("/")[1]}
-												</title>
+												<title>Hazen Zoom - {this.state.myName}</title>
 											</Helmet>
 											<div className="user-container">
 												<h1 className="user-welcome">
@@ -650,6 +647,11 @@ class App extends React.Component {
 																<>
 																	{function () {
 																		var currDate = moment(new Date());
+																		// FOR TESTING ONLY!
+																		// var currDate = moment(
+																		// 	"2020-09-03 16:30",
+																		// 	"YYYY-MM-DD HH:mm"
+																		// ).add(this.timeOffset, "minutes");
 
 																		for (let section in this.offTime) {
 																			var start = moment(
@@ -673,25 +675,15 @@ class App extends React.Component {
 																				if (section === "beforeSchool") {
 																					return (
 																						<>
-																							<div
-																								style={{
-																									textAlign: "center",
-																									paddingRight: "1vw",
-																									marginTop: "2em",
-																								}}
-																							>
+																							<div className="upcoming-noClass">
 																								<img
 																									src="begin.svg"
-																									style={{
-																										width: "20vw",
-																										marginBottom: "2em",
-																									}}
 																									draggable={false}
 																									alt="Done with classes"
 																								/>
 																								<p>
-																									Have a great start to your
-																									day!
+																									No classes just yet. Have a
+																									great start to your day!
 																								</p>
 																							</div>
 																						</>
@@ -699,19 +691,9 @@ class App extends React.Component {
 																				} else if (section === "lunch") {
 																					return (
 																						<>
-																							<div
-																								style={{
-																									textAlign: "center",
-																									paddingRight: "1vw",
-																									marginTop: "2em",
-																								}}
-																							>
+																							<div className="upcoming-noClass">
 																								<img
 																									src="lunch.svg"
-																									style={{
-																										width: "20vw",
-																										marginBottom: "2em",
-																									}}
 																									draggable={false}
 																									alt="Done with classes"
 																								/>
@@ -730,19 +712,9 @@ class App extends React.Component {
 																				} else if (section === "afterSchool") {
 																					return (
 																						<>
-																							<div
-																								style={{
-																									textAlign: "center",
-																									paddingRight: "1vw",
-																									marginTop: "2em",
-																								}}
-																							>
+																							<div className="upcoming-noClass">
 																								<img
 																									src="done.svg"
-																									style={{
-																										width: "20vw",
-																										marginBottom: "2em",
-																									}}
 																									draggable={false}
 																									alt="Done with classes"
 																								/>
@@ -817,12 +789,13 @@ class App extends React.Component {
 																	Quick Links
 																</h2>
 															</div>
-															{this.quickLinks.map((link) => (
+															{this.quickLinks.map((link, i) => (
 																<p
 																	style={{
 																		fontSize: "1.1em",
 																		marginBottom: "0.25em",
 																	}}
+																	key={link + i}
 																>
 																	<a
 																		href={link.url}
@@ -931,6 +904,7 @@ class App extends React.Component {
 																			pageSize: dataSource.length,
 																			hideOnSinglePage: true,
 																		}}
+																		scroll={{ x: 575 }}
 																	/>
 																);
 															}.bind(this)()}
@@ -1041,8 +1015,8 @@ class App extends React.Component {
 																	"go"}
 															</code>
 														</a>
-														, you will be automatically redirect to your next
-														class's zoom link!
+														, you will be automatically redirected to your
+														upcoming class's zoom link!
 													</li>
 													<li>
 														You can access all of your zoom links on the right

@@ -16,6 +16,7 @@
 
 .user-welcome {
 	font-size: 4em;
+	margin-right: 10vh;
 }
 
 .user-flex {
@@ -141,8 +142,21 @@ code {
 	word-break: break-all;
 }
 
+.upcoming-noClass {
+	text-align: center;
+	padding-right: 1vw;
+	margin-top: 2em;
+}
+.upcoming-noClass img {
+	width: 20vw;
+	margin-bottom: 2em;
+}
+
 @media only screen and (max-width: 920px) {
 	.user-flex {
 		flex-wrap: wrap;
+	}
+	.upcoming-noClass > img {
+		width: 100%;
 	}
 }

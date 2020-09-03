@@ -40,7 +40,7 @@ function Error() {
 			answer: (
 				<p>
 					Of course! Once you create a dashboard, you can add <code>/go</code>{" "}
-					to the end of your Custom URL and it will take your directly to the
+					to the end of your custom URL and it will take you directly to the
 					current period's zoom link.
 				</p>
 			),
