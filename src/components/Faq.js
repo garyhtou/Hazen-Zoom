@@ -1,6 +1,4 @@
 import React from "react";
-import { Spin } from "antd";
-import { Helmet } from "react-helmet";
 import firebase from "./../firebase";
 
 function Error() {
@@ -31,7 +29,7 @@ function Error() {
 						firebase.analytics().logEvent("to_demo", {
 							location: "home_example",
 						});
-					}.bind(this)}
+					}}
 				>
 					Visit demo dashboard
 				</a>

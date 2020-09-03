@@ -1,5 +1,4 @@
 import React from "react";
-import { Spin } from "antd";
 import { Helmet } from "react-helmet";
 import "./Error.css";
 

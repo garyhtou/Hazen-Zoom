@@ -44,6 +44,7 @@ class App extends React.Component {
 			currPeriod: "Home",
 			myName: "",
 			inital: false,
+			randomEmoji: this.randomEmoji(),
 		};
 
 		for (let period in this.periodColors) {
@@ -51,6 +52,7 @@ class App extends React.Component {
 		}
 
 		this.updateCurrClass = this.updateCurrClass.bind(this);
+		this.closeInital = this.closeInital.bind(this);
 	}
 
 	// in milli (30 secs)
@@ -59,10 +61,35 @@ class App extends React.Component {
 	//in mins
 	timeOffset = 10;
 
-	randomEmojisList = ["👋", "😆", "😎", "🤩", "🥳"];
-	randomEmoji = this.randomEmojisList[
-		Math.floor(Math.random() * this.randomEmojisList.length)
+	randomEmojisList = [
+		"👋",
+		"😆",
+		"😎",
+		"🤩",
+		"🥳",
+		"✨",
+		"🌟",
+		"🚀",
+		"😜",
+		"😝",
+		"🐳",
+		"🌊",
+		"🔥",
+		"🍍",
+		"🎯",
+		"🏝️",
+		"🗿",
+		"🗽",
+		"🗼",
+		"🌄",
+		"🏜️",
+		"🌋",
 	];
+	randomEmoji = function () {
+		return this.randomEmojisList[
+			Math.floor(Math.random() * this.randomEmojisList.length)
+		];
+	};
 
 	randomBackground() {
 		//https://codepen.io/chrisgresh/pen/aNjovb
@@ -375,10 +402,6 @@ class App extends React.Component {
 									links.P4 = link.href;
 									data.periods.P4.push(name);
 									break;
-								case this.periodMap.P4:
-									links.P4 = link.href;
-									data.periods.P5.push(name);
-									break;
 								case this.periodMap.P5:
 									links.P5 = link.href;
 									data.periods.P5.push(name);
@@ -524,6 +547,23 @@ class App extends React.Component {
 		});
 	}
 
+	closeInital() {
+		this.setState({ inital: false });
+		if (window.location.pathname.split("/")[1] !== "demo") {
+			firebase
+				.database()
+				.ref("inital/" + window.location.pathname.split("/")[1])
+				.set(false)
+				.catch((err) => {
+					console.log(err);
+				});
+		} else {
+			firebase.analytics().logEvent("view_demo", {
+				location: "direct",
+			});
+		}
+	}
+
 	render() {
 		return (
 			<Layout
@@ -558,8 +598,18 @@ class App extends React.Component {
 														? ", " + this.state.myName
 														: ""}
 													!
-													<span className="user-welcomeEmoji">
-														{this.randomEmoji}
+													<span
+														className="user-welcomeEmoji"
+														role="img"
+														aria-label="emoji"
+														style={{ cursor: "default", userSelect: "none" }}
+														onClick={function () {
+															this.setState({
+																randomEmoji: this.randomEmoji(),
+															});
+														}.bind(this)}
+													>
+														{this.state.randomEmoji}
 													</span>
 												</h1>
 												<div className="user-flex">
@@ -600,22 +650,90 @@ class App extends React.Component {
 																				if (section === "beforeSchool") {
 																					return (
 																						<>
-																							<p>Have a great day!</p>
+																							<div
+																								style={{
+																									textAlign: "center",
+																									paddingRight: "1vw",
+																									marginTop: "2em",
+																								}}
+																							>
+																								<img
+																									src="begin.svg"
+																									style={{
+																										width: "20vw",
+																										marginBottom: "2em",
+																									}}
+																									draggable={false}
+																									alt="Done with classes"
+																								/>
+																								<p>
+																									Have a great start to your
+																									day!
+																								</p>
+																							</div>
 																						</>
 																					);
 																				} else if (section === "lunch") {
 																					return (
 																						<>
-																							<p>Enjoy your lunch!🍽️</p>
+																							<div
+																								style={{
+																									textAlign: "center",
+																									paddingRight: "1vw",
+																									marginTop: "2em",
+																								}}
+																							>
+																								<img
+																									src="lunch.svg"
+																									style={{
+																										width: "20vw",
+																										marginBottom: "2em",
+																									}}
+																									draggable={false}
+																									alt="Done with classes"
+																								/>
+																								<p>
+																									Enjoy your lunch!
+																									<span
+																										role="img"
+																										aria-label="plate"
+																									>
+																										🍽️
+																									</span>
+																								</p>
+																							</div>
 																						</>
 																					);
 																				} else if (section === "afterSchool") {
 																					return (
 																						<>
-																							<p>
-																								Yay! You're done with your
-																								classes for the day.
-																							</p>
+																							<div
+																								style={{
+																									textAlign: "center",
+																									paddingRight: "1vw",
+																									marginTop: "2em",
+																								}}
+																							>
+																								<img
+																									src="done.svg"
+																									style={{
+																										width: "20vw",
+																										marginBottom: "2em",
+																									}}
+																									draggable={false}
+																									alt="Done with classes"
+																								/>
+																								<p>
+																									Yay! You're done with your
+																									classes for the day!{" "}
+																									<span
+																										role="img"
+																										aria-label="clap"
+																									>
+																										👏
+																									</span>
+																								</p>
+																							</div>
 																						</>
 																					);
 																				} else {
@@ -812,7 +930,7 @@ class App extends React.Component {
 																			<h3>
 																				<strong>{this.periodMap[key]}</strong>
 																			</h3>
-																			<p>
+																			<p style={{ fontWeight: "600" }}>
 																				Join {this.state.myTeachers[key]}'s Zoom
 																			</p>
 																		</div>
@@ -827,36 +945,18 @@ class App extends React.Component {
 												title={null}
 												visible={this.state.inital}
 												footer={
-													<Button
-														type="primary"
-														onClick={function () {
-															this.setState({ inital: false });
-															if (
-																window.location.pathname.split("/")[1] !==
-																"demo"
-															) {
-																firebase
-																	.database()
-																	.ref(
-																		"inital/" +
-																			window.location.pathname.split("/")[1]
-																	)
-																	.set(false)
-																	.catch((err) => {
-																		console.log(err);
-																	});
-															} else {
-																firebase.analytics().logEvent("view_demo", {
-																	location: "direct",
-																});
-															}
-														}.bind(this)}
-													>
+													<Button type="primary" onClick={this.closeInital}>
 														Sounds good!
 													</Button>
 												}
+												onCancel={this.closeInital}
 											>
-												<h1>👋 Hey!</h1>
+												<h1>
+													<span role="img" aria-label="wave">
+														👋
+													</span>{" "}
+													Hey!
+												</h1>
 												<p>
 													Here's a quick overview of the features this dashboard
 													offers:
@@ -918,7 +1018,7 @@ class App extends React.Component {
 																		<code>
 																			{(navigator.userAgent
 																				.toLowerCase()
-																				.indexOf("mac") != -1
+																				.indexOf("mac") !== -1
 																				? "Command/Cmd"
 																				: "CTRL") + " + D"}
 																		</code>{" "}
@@ -951,7 +1051,7 @@ class App extends React.Component {
 													firebase.analytics().logEvent("visit_hazen", {
 														user: window.location.pathname.split("/")[1],
 													});
-												}.bind(this)}
+												}}
 											>
 												<img
 													src="/HazenLogo.png"
@@ -973,7 +1073,7 @@ class App extends React.Component {
 							firebase.analytics().logEvent("visit_github_repo", {
 								user: window.location.pathname.split("/")[1],
 							});
-						}.bind(this)}
+						}}
 					>
 						Hazen Zoom <GithubOutlined />
 					</a>
@@ -985,7 +1085,7 @@ class App extends React.Component {
 							firebase.analytics().logEvent("visit_garytou_com", {
 								user: window.location.pathname.split("/")[1],
 							});
-						}.bind(this)}
+						}}
 					>
 						Gary Tou
 					</a>

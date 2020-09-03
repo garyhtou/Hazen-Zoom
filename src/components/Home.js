@@ -548,7 +548,7 @@ class Home extends React.Component {
 										firebase.analytics().logEvent("to_demo", {
 											location: "home_example",
 										});
-									}.bind(this)}
+									}}
 								>
 									<Tooltip title="This could be your dashboard!">
 										<img

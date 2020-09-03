@@ -116,11 +116,10 @@
 
 .FAB {
 	position: absolute;
-	top: 3vh;
-	right: 3vh;
+	top: 4vh;
+	right: 4vh;
 	/* background-color: #304efa; */
 	border-radius: 100%;
-	padding: 0.5vh;
 	transition: transform 0.15s ease;
 }
 .FAB:hover {
