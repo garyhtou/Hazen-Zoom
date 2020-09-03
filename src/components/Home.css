@@ -54,6 +54,7 @@
 .home-example {
 	filter: drop-shadow(0.2vh 0.2vh 0.5vh #9f9f9f);
 	transition: transform 0.5s ease;
+	width: fit-content;
 }
 .home-example:hover {
 	transform: scale(2) rotate(-2deg) translate(-25%, 25%);

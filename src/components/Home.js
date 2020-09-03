@@ -517,13 +517,26 @@ class Home extends React.Component {
 						</div>
 						<div className="home-regImages">
 							<div className="home-example home-rightSection">
-								<Tooltip title="This could be your dashboard!">
-									<img
-										src="example.jpg"
-										alt="Dashboard Example"
-										className="home-images"
-									/>
-								</Tooltip>
+								<a
+									href={
+										window.location.protocol +
+										"//" +
+										window.location.hostname +
+										(window.location.port ? ":" + window.location.port : "") +
+										"/" +
+										"demo"
+									}
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<Tooltip title="This could be your dashboard!">
+										<img
+											src="example.jpg"
+											alt="Dashboard Example"
+											className="home-images"
+										/>
+									</Tooltip>
+								</a>
 							</div>
 							<div className="home-rightSection">
 								<div style={{ width: "fit-content" }}>

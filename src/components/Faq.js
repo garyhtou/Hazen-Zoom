@@ -24,6 +24,8 @@ function Error() {
 						(window.location.port ? ":" + window.location.port : "") +
 						"/demo"
 					}
+					target="_blank"
+					rel="noopener noreferrer"
 				>
 					Visit demo dashboard
 				</a>

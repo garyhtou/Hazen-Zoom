@@ -6,10 +6,11 @@ import moment from "moment";
 import { Helmet } from "react-helmet";
 
 import { Layout, Button, notification, Table, Tooltip } from "antd";
-import { GithubOutlined } from "@ant-design/icons";
+import { GithubOutlined, BookOutlined } from "@ant-design/icons";
 import Loading from "./components/Loading";
 import Error from "./components/Error";
 import Home from "./components/Home";
+import Modal from "antd/lib/modal/Modal";
 
 const { Content, Footer } = Layout;
 
@@ -18,7 +19,7 @@ class App extends React.Component {
 		super(props);
 
 		this.state = {
-			home: window.location.pathname === "/",
+			home: window.location.pathname.split("/")[1] === "",
 			loading: true,
 			data: {},
 			error: false,
@@ -42,6 +43,7 @@ class App extends React.Component {
 			},
 			currPeriod: "Home",
 			myName: "",
+			inital: false,
 		};
 
 		for (let period in this.periodColors) {
@@ -57,7 +59,7 @@ class App extends React.Component {
 	//in mins
 	timeOffset = 10;
 
-	randomEmojisList = ["👋", "😆", "😎", "🤩", "🥳", "😳"];
+	randomEmojisList = ["👋", "😆", "😎", "🤩", "🥳"];
 	randomEmoji = this.randomEmojisList[
 		Math.floor(Math.random() * this.randomEmojisList.length)
 	];
@@ -312,7 +314,13 @@ class App extends React.Component {
 		var corsAnywhere = "https://cors-anywhere.herokuapp.com/";
 
 		fetch(corsAnywhere + hazenZoom)
-			.then((response) => response.text())
+			.then((response) => {
+				if (response.ok) {
+					return response.text();
+				} else {
+					throw new Error("Something went wrong. Try refreshing the page!");
+				}
+			})
 			.then((response) => {
 				var parser = new DOMParser();
 				var html = parser.parseFromString(response, "text/html");
@@ -417,16 +425,10 @@ class App extends React.Component {
 											const nonPeriodFields = ["name"];
 
 											for (let period in myTeachers) {
-												console.log(myTeachers);
 												if (
 													!nonPeriodFields.includes(period) &&
 													myTeachers[period] !== ""
 												) {
-													console.log(this.state.data.teachers);
-													console.log(myTeachers[period]);
-													console.log(
-														this.state.data.teachers[myTeachers[period]]
-													);
 													links[period] = this.state.data.teachers[
 														myTeachers[period]
 													].links[period];
@@ -446,12 +448,29 @@ class App extends React.Component {
 														currPeriod !== null &&
 														links[currPeriod] !== "#"
 													) {
-														console.log(links[currPeriod]);
 														window.location.href = links[this.state.currPeriod];
 													}
 												}
 											});
 											setInterval(this.updateCurrClass, this.updateFreq);
+
+											if (window.location.pathname.split("/")[1] === "demo") {
+												this.setState({ inital: true });
+											} else {
+												firebase
+													.database()
+													.ref(
+														"inital/" + window.location.pathname.split("/")[1]
+													)
+													.once(
+														"value",
+														function (snapshot) {
+															if (!snapshot.exists()) {
+																this.setState({ inital: true });
+															}
+														}.bind(this)
+													);
+											}
 										} else {
 											this.setState({ error: true, loading: false });
 										}
@@ -466,7 +485,8 @@ class App extends React.Component {
 				notification.open({
 					type: "error",
 					message: "Error",
-					description: <p>{err.toString()}</p>,
+					description: <p>Something went wrong. Try refreshing the page!</p>,
+					duration: 0,
 				});
 			});
 	}
@@ -755,7 +775,6 @@ class App extends React.Component {
 																		<div
 																			key={key}
 																			className="user-classItem"
-																			// background: this.randomBackground(),
 																			style={{
 																				background: this.periodColors[key],
 																			}}
@@ -779,6 +798,114 @@ class App extends React.Component {
 													</div>
 												</div>
 											</div>
+											<Modal
+												title={null}
+												visible={this.state.inital}
+												footer={
+													<Button
+														type="primary"
+														onClick={function () {
+															this.setState({ inital: false });
+															if (
+																window.location.pathname.split("/")[1] !==
+																"demo"
+															) {
+																firebase
+																	.database()
+																	.ref(
+																		"inital/" +
+																			window.location.pathname.split("/")[1]
+																	)
+																	.set(false)
+																	.catch((err) => {
+																		console.log(err);
+																	});
+															}
+														}.bind(this)}
+													>
+														Sounds good!
+													</Button>
+												}
+											>
+												<h1>👋 Hey!</h1>
+												<p>
+													Here's a quick overview of the features this dashboard
+													offers:
+												</p>
+												<ul>
+													<li>
+														Your next class will be listed under{" "}
+														<code>Upcoming</code> on the top left.
+													</li>
+													<li>
+														If you visit{" "}
+														<a
+															href={
+																window.location.protocol +
+																"//" +
+																window.location.hostname +
+																(window.location.port
+																	? ":" + window.location.port
+																	: "") +
+																"/" +
+																window.location.pathname.split("/")[1] +
+																"/" +
+																"go"
+															}
+														>
+															<code>
+																{window.location.protocol +
+																	"//" +
+																	window.location.hostname +
+																	(window.location.port
+																		? ":" + window.location.port
+																		: "") +
+																	"/" +
+																	window.location.pathname.split("/")[1] +
+																	"/" +
+																	"go"}
+															</code>
+														</a>
+														, you will be automatically redirect to your next
+														class's zoom link!
+													</li>
+													<li>
+														You can access all of your zoom links on the right
+														side.
+													</li>
+													<li>The schedule can be seen on the bottom left.</li>
+												</ul>
+												<br />
+												<p>
+													Last but not least, don't forget to{" "}
+													<a
+														href="#"
+														onClick={function () {
+															notification.open({
+																icon: <BookOutlined />,
+																message: (
+																	<p>
+																		Press{" "}
+																		<code>
+																			{(navigator.userAgent
+																				.toLowerCase()
+																				.indexOf("mac") != -1
+																				? "Command/Cmd"
+																				: "CTRL") + " + D"}
+																		</code>{" "}
+																		to bookmark this page.
+																	</p>
+																),
+																duration: 10,
+															});
+														}}
+													>
+														<strong>Bookmark</strong>
+													</a>{" "}
+													this page so you always have easy access to your zoom
+													links!
+												</p>
+											</Modal>
 										</>
 									) : (
 										<Error />
