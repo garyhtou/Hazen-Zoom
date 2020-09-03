@@ -27,11 +27,11 @@ function Error() {
 					}
 					target="_blank"
 					rel="noopener noreferrer"
-					onClick={(function () {
+					onClick={function () {
 						firebase.analytics().logEvent("to_demo", {
 							location: "home_example",
 						});
-					})()}
+					}.bind(this)}
 				>
 					Visit demo dashboard
 				</a>
@@ -79,11 +79,11 @@ function Error() {
 		<>
 			<h3 style={{ fontSize: "1.5em" }}>FAQ</h3>
 			{faq.map((faq) => (
-				<div style={{ marginBottom: "1em" }}>
+				<div style={{ marginBottom: "1em" }} key={faq.question}>
 					<p style={{ marginBottom: "0" }}>
 						<strong>{faq.question}</strong>
 					</p>
-					<p>{faq.answer}</p>
+					{faq.answer}
 				</div>
 			))}
 		</>

@@ -81,7 +81,7 @@ class Home extends React.Component {
 														}}
 													>
 														{this.forTypist.map((value) => (
-															<span>
+															<span key={value}>
 																<span>{value}</span>
 																<Typist.Delay ms={1000} />
 																<Typist.Backspace
@@ -357,7 +357,7 @@ class Home extends React.Component {
 												{!this.props.loading ? (
 													<>
 														{this.props.data.periods.BS.map((value) => (
-															<Select.Option value={value}>
+															<Select.Option value={value} key={value}>
 																{value}
 															</Select.Option>
 														))}
@@ -377,7 +377,7 @@ class Home extends React.Component {
 												{!this.props.loading ? (
 													<>
 														{this.props.data.periods.Home.map((value) => (
-															<Select.Option value={value}>
+															<Select.Option value={value} key={value}>
 																{value}
 															</Select.Option>
 														))}
@@ -393,7 +393,7 @@ class Home extends React.Component {
 												{!this.props.loading ? (
 													<>
 														{this.props.data.periods.P1.map((value) => (
-															<Select.Option value={value}>
+															<Select.Option value={value} key={value}>
 																{value}
 															</Select.Option>
 														))}
@@ -409,7 +409,7 @@ class Home extends React.Component {
 												{!this.props.loading ? (
 													<>
 														{this.props.data.periods.P2.map((value) => (
-															<Select.Option value={value}>
+															<Select.Option value={value} key={value}>
 																{value}
 															</Select.Option>
 														))}
@@ -425,7 +425,7 @@ class Home extends React.Component {
 												{!this.props.loading ? (
 													<>
 														{this.props.data.periods.P3.map((value) => (
-															<Select.Option value={value}>
+															<Select.Option value={value} key={value}>
 																{value}
 															</Select.Option>
 														))}
@@ -441,7 +441,7 @@ class Home extends React.Component {
 												{!this.props.loading ? (
 													<>
 														{this.props.data.periods.P4.map((value) => (
-															<Select.Option value={value}>
+															<Select.Option value={value} key={value}>
 																{value}
 															</Select.Option>
 														))}
@@ -457,7 +457,7 @@ class Home extends React.Component {
 												{!this.props.loading ? (
 													<>
 														{this.props.data.periods.P5.map((value) => (
-															<Select.Option value={value}>
+															<Select.Option value={value} key={value}>
 																{value}
 															</Select.Option>
 														))}
@@ -544,11 +544,11 @@ class Home extends React.Component {
 									}
 									target="_blank"
 									rel="noopener noreferrer"
-									onClick={(function () {
+									onClick={function () {
 										firebase.analytics().logEvent("to_demo", {
 											location: "home_example",
 										});
-									})()}
+									}.bind(this)}
 								>
 									<Tooltip title="This could be your dashboard!">
 										<img

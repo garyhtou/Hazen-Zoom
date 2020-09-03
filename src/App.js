@@ -638,7 +638,7 @@ class App extends React.Component {
 																	type="primary"
 																	className="user-joinNowButton"
 																	href="#"
-																	onClick={(function () {
+																	onClick={function () {
 																		firebase
 																			.analytics()
 																			.logEvent("join_current", {
@@ -655,7 +655,7 @@ class App extends React.Component {
 																		window.location.href = this.state.myLinks[
 																			this.state.currPeriod
 																		];
-																	})()}
+																	}.bind(this)}
 																>
 																	<p>
 																		{/* <img src="/zoom.png" alt="Zoom Logo" /> */}
@@ -947,11 +947,11 @@ class App extends React.Component {
 											<a
 												href="https://hazen.rentonschools.us/class-of-2020/links-to-zoom-classrooms"
 												draggable={false}
-												onClick={(function () {
+												onClick={function () {
 													firebase.analytics().logEvent("visit_hazen", {
 														user: window.location.pathname.split("/")[1],
 													});
-												})()}
+												}.bind(this)}
 											>
 												<img
 													src="/HazenLogo.png"
@@ -969,11 +969,11 @@ class App extends React.Component {
 					<a
 						className="gh-link"
 						href="https://github.com/garytou2/Hazen-Zoom"
-						onClick={(function () {
+						onClick={function () {
 							firebase.analytics().logEvent("visit_github_repo", {
 								user: window.location.pathname.split("/")[1],
 							});
-						})()}
+						}.bind(this)}
 					>
 						Hazen Zoom <GithubOutlined />
 					</a>
@@ -981,11 +981,11 @@ class App extends React.Component {
 					Developed by{" "}
 					<a
 						href="https://garytou.com"
-						onClick={(function () {
+						onClick={function () {
 							firebase.analytics().logEvent("visit_garytou_com", {
 								user: window.location.pathname.split("/")[1],
 							});
-						})()}
+						}.bind(this)}
 					>
 						Gary Tou
 					</a>
