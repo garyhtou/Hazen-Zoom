@@ -1,0 +1,85 @@
+@import "~react-typist/dist/Typist.css";
+
+.home {
+	padding: 5vw;
+	padding-top: 3vw;
+}
+
+.home-titleContainer {
+	margin-bottom: 4em;
+}
+
+.home-regSection {
+	display: flex;
+	flex-direction: row;
+	flex-basis: 0;
+	flex-grow: 0;
+}
+
+.home-title {
+	color: #304efa;
+	font-size: 6em;
+	line-height: 1;
+}
+.home-titleContainer > h3 {
+	font-size: 1.5em;
+}
+
+.home-regContainer {
+	padding: 2em;
+	background-color: white;
+	border-radius: 2em;
+	flex-grow: 1;
+	min-width: 45vw;
+	margin-bottom: 5em;
+}
+
+.home-regMessage {
+	margin-bottom: 1.5em;
+	font-weight: bold;
+}
+
+.home-regTitle {
+	font-size: 2em;
+}
+
+.typist {
+	display: inline;
+}
+
+.home-regImages {
+	margin-left: 5vw;
+}
+
+.home-example {
+	filter: drop-shadow(0.2vh 0.2vh 0.5vh #9f9f9f);
+	transition: transform 0.5s ease;
+}
+.home-example:hover {
+	transform: scale(2) rotate(-2deg) translate(-25%, 25%);
+}
+
+.home-rightSection {
+	margin-bottom: 4vh;
+}
+
+.home-email:not(:hover) {
+	color: transparent;
+	text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.home-images {
+	width: 30vw;
+}
+
+@media only screen and (max-width: 950px) {
+	.home-regSection {
+		flex-wrap: wrap;
+	}
+	.home-images {
+		width: 95%;
+	}
+	.home-example:hover {
+		transform: scale(1) rotate(0) translate(0, 0);
+	}
+}

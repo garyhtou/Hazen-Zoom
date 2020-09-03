@@ -1,5 +1,5 @@
 {
-  "name": "zoom-to-class",
+  "name": "hazen-zoom",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,11 +7,14 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "antd": "^4.6.2",
+    "bad-words": "^3.0.3",
     "firebase": "^7.19.1",
     "moment": "^2.27.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-helmet": "^6.1.0",
+    "react-scripts": "3.4.3",
+    "react-typist": "^2.0.5"
   },
   "scripts": {
     "start": "react-scripts start",

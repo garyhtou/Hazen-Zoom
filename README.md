@@ -1,4 +1,4 @@
-# Zoom to Class
+# Hazen Zoom
 
 Firebase Realtime Database rules:
 

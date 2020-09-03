@@ -1,0 +1,13 @@
+.error-flex {
+	display: flex;
+}
+
+@media only screen and (max-width: 950px) {
+	.error-flex {
+		flex-wrap: wrap-reverse;
+	}
+	.error-flex div {
+		width: 100%;
+		margin-top: 5vh;
+	}
+}

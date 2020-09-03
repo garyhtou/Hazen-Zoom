@@ -1,21 +1,11 @@
 {
-	"short_name": "Z2C",
-	"name": "Zoom to Class",
+	"short_name": "Hazen Zoom",
+	"name": "Hazen Zoom",
 	"icons": [
 		{
-			"src": "favicon.ico",
-			"sizes": "64x64 32x32 24x24 16x16",
-			"type": "image/x-icon"
-		},
-		{
-			"src": "logo192.png",
+			"src": "HazenZoomFavicon.png",
 			"type": "image/png",
-			"sizes": "192x192"
-		},
-		{
-			"src": "logo512.png",
-			"type": "image/png",
-			"sizes": "512x512"
+			"sizes": "250x250"
 		}
 	],
 	"start_url": ".",
