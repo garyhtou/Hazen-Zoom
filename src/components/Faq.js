@@ -1,6 +1,7 @@
 import React from "react";
 import { Spin } from "antd";
 import { Helmet } from "react-helmet";
+import firebase from "./../firebase";
 
 function Error() {
 	const faq = [
@@ -26,6 +27,11 @@ function Error() {
 					}
 					target="_blank"
 					rel="noopener noreferrer"
+					onClick={(function () {
+						firebase.analytics().logEvent("to_demo", {
+							location: "home_example",
+						});
+					})()}
 				>
 					Visit demo dashboard
 				</a>

@@ -637,9 +637,25 @@ class App extends React.Component {
 																<Button
 																	type="primary"
 																	className="user-joinNowButton"
-																	href={
-																		this.state.myLinks[this.state.currPeriod]
-																	}
+																	href="#"
+																	onClick={(function () {
+																		firebase
+																			.analytics()
+																			.logEvent("join_current", {
+																				user: window.location.pathname.split(
+																					"/"
+																				)[1],
+																				teacher: this.state.myTeachers[
+																					this.state.currPeriod
+																				],
+																				link: this.state.myLinks[
+																					this.state.currPeriod
+																				],
+																			});
+																		window.location.href = this.state.myLinks[
+																			this.state.currPeriod
+																		];
+																	})()}
 																>
 																	<p>
 																		{/* <img src="/zoom.png" alt="Zoom Logo" /> */}
@@ -779,6 +795,15 @@ class App extends React.Component {
 																				background: this.periodColors[key],
 																			}}
 																			onClick={() => {
+																				firebase
+																					.analytics()
+																					.logEvent("join_button", {
+																						user: window.location.pathname.split(
+																							"/"
+																						)[1],
+																						teacher: this.state.myTeachers[key],
+																						link: this.state.myLinks[key],
+																					});
 																				window.location.href = this.state.myLinks[
 																					key
 																				];
@@ -820,6 +845,10 @@ class App extends React.Component {
 																	.catch((err) => {
 																		console.log(err);
 																	});
+															} else {
+																firebase.analytics().logEvent("view_demo", {
+																	location: "direct",
+																});
 															}
 														}.bind(this)}
 													>
@@ -918,6 +947,11 @@ class App extends React.Component {
 											<a
 												href="https://hazen.rentonschools.us/class-of-2020/links-to-zoom-classrooms"
 												draggable={false}
+												onClick={(function () {
+													firebase.analytics().logEvent("visit_hazen", {
+														user: window.location.pathname.split("/")[1],
+													});
+												})()}
 											>
 												<img
 													src="/HazenLogo.png"
@@ -932,11 +966,29 @@ class App extends React.Component {
 					)}
 				</Content>
 				<Footer style={{ textAlign: "center" }}>
-					<a className="gh-link" href="https://github.com/garytou2/Hazen-Zoom">
+					<a
+						className="gh-link"
+						href="https://github.com/garytou2/Hazen-Zoom"
+						onClick={(function () {
+							firebase.analytics().logEvent("visit_github_repo", {
+								user: window.location.pathname.split("/")[1],
+							});
+						})()}
+					>
 						Hazen Zoom <GithubOutlined />
 					</a>
 					<span className="credit-sep">|</span>
-					Developed by <a href="https://garytou.com">Gary Tou</a>
+					Developed by{" "}
+					<a
+						href="https://garytou.com"
+						onClick={(function () {
+							firebase.analytics().logEvent("visit_garytou_com", {
+								user: window.location.pathname.split("/")[1],
+							});
+						})()}
+					>
+						Gary Tou
+					</a>
 				</Footer>
 			</Layout>
 		);

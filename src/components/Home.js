@@ -103,6 +103,18 @@ class Home extends React.Component {
 										hideRequiredMark
 										onFinish={function (values) {
 											console.log(values);
+											firebase.analytics().logEvent("register_submit", {
+												name: values.name.trim(),
+												url: values.url.trim(),
+												BS: values.BS,
+												Home: values.Home,
+												P1: values.P1,
+												P2: values.P2,
+												P3: values.P3,
+												P4: values.P4,
+												P5: values.P5,
+											});
+
 											var error = false;
 											if (values.name.trim().length > 50) {
 												notification.open({
@@ -249,6 +261,10 @@ class Home extends React.Component {
 																			description: error.toString(),
 																		});
 																	});
+
+																firebase
+																	.analytics()
+																	.logEvent("register_success", regValues);
 															}
 														}.bind(this)
 													);
@@ -528,6 +544,11 @@ class Home extends React.Component {
 									}
 									target="_blank"
 									rel="noopener noreferrer"
+									onClick={(function () {
+										firebase.analytics().logEvent("to_demo", {
+											location: "home_example",
+										});
+									})()}
 								>
 									<Tooltip title="This could be your dashboard!">
 										<img
