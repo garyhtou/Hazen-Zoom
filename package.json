@@ -3,7 +3,6 @@
 	"version": "0.1.0",
 	"private": true,
 	"author": "Gary Tou <garytou2@gmail.com> (https://garytou.com)",
-	"homepage": "https://github.com/garytou2/hazen-zoom",
 	"license": "MIT",
 	"dependencies": {
 		"@testing-library/jest-dom": "^4.2.4",
