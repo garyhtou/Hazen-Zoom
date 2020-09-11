@@ -726,7 +726,7 @@ class App extends React.Component {
 																						<>
 																							<div className="upcoming-noClass">
 																								<img
-																									src="begin.svg"
+																									src="/begin.svg"
 																									draggable={false}
 																									alt="Done with classes"
 																								/>
@@ -742,7 +742,7 @@ class App extends React.Component {
 																						<>
 																							<div className="upcoming-noClass">
 																								<img
-																									src="lunch.svg"
+																									src="/lunch.svg"
 																									draggable={false}
 																									alt="Done with classes"
 																								/>
@@ -763,7 +763,7 @@ class App extends React.Component {
 																						<>
 																							<div className="upcoming-noClass">
 																								<img
-																									src="done.svg"
+																									src="/done.svg"
 																									draggable={false}
 																									alt="Done with classes"
 																								/>
