@@ -10,7 +10,7 @@ This custom dashbaords feature:
 
 - Consolidated zoom links.
 - Your upcoming class will be displayed with its Zoom join button (based on your schedule and the current time).
-- Visting https://hazen.launchto.me/<YOUR_CUSTOM_URL>/go, you will be automatically redirected to your upcoming class's zoom link.
+- Visting https://hazen.launchto.me/<YOUR_CUSTOM_URL>/go, will automatically redirected you to your upcoming class's zoom link.
 - Quick links to important sites such as Canvas, Hazen's website, schedule change form, etc.
 - Bell Schedule
 
@@ -65,6 +65,7 @@ Note: `.write` for `data` will need to be toggled to `true` if saving new Data w
 - Firebase ([Realtime Database](https://firebase.google.com/docs/database))
 - [Ant Design](https://ant.design/) as UI framework
 - [`bad-words`](https://www.npmjs.com/package/bad-words) to keep inputs clean
+- [`cors-anywhere`](https://cors-anywhere.herokuapp.com/) for client-side scraping
 
 ---
 
