@@ -325,14 +325,14 @@ class App extends React.Component {
 	offTime = {
 		beforeSchool: {
 			start: "00:00:00",
-			end: "12:00:00",
+			end: "11:30:00",
 		},
 		lunch: {
-			start: "12:00:00",
-			end: "13:00:00",
+			start: "11:30:00",
+			end: "13:30:00",
 		},
 		afterSchool: {
-			start: "13:00:00",
+			start: "13:30:00",
 			end: "23:59:59",
 		},
 	};
