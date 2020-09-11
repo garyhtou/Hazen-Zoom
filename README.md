@@ -2,7 +2,7 @@
 
 Personalized class zoom link dashboard for students/teachers at Hazen High School<sup>1</sup>. Create your own dashboard at [https://hazen.launchto.me](https://hazen.launchto.me)
 
-[**DEMO!**](http://localhost:3000/demo)
+[**DEMO!**](https://hazen.launchto.me/demo)
 
 ![Example of Hazen Zoom dashbaord](https://user-images.githubusercontent.com/20099646/92957175-fd0d7280-f41c-11ea-8596-b6f775031cc9.JPG)
 
