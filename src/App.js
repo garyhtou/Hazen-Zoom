@@ -14,6 +14,9 @@ import Modal from "antd/lib/modal/Modal";
 
 const { Content, Footer } = Layout;
 
+const saveData = false;
+const useSavedData = true;
+
 class App extends React.Component {
 	constructor(props) {
 		super(props);
@@ -339,86 +342,122 @@ class App extends React.Component {
 			"https://hazen.rentonschools.us/class-of-2020/links-to-zoom-classrooms";
 		var corsAnywhere = "https://cors-anywhere.herokuapp.com/";
 
-		fetch(corsAnywhere + hazenZoom)
-			.then((response) => {
-				if (response.ok) {
-					return response.text();
-				} else {
-					throw new Error("Something went wrong. Try refreshing the page!");
-				}
-			})
-			.then((response) => {
-				var parser = new DOMParser();
-				var html = parser.parseFromString(response, "text/html");
+		var promise = new Promise((resolve, reject) => {
+			if (useSavedData && !saveData) {
+				console.log("USING SAVED DATA");
+				firebase
+					.database()
+					.ref("data")
+					.once("value", (snapshot) => {
+						resolve(snapshot.val());
+					});
+			} else {
+				console.log("GETTING NEW DATA");
+				fetch(corsAnywhere + hazenZoom).then((response) => {
+					if (response.ok) {
+						response.text().then((response) => {
+							var parser = new DOMParser();
+							var html = parser.parseFromString(response, "text/html");
 
-				var data = {
-					teachers: {},
-					periods: { Home: [], BS: [], P1: [], P2: [], P3: [], P4: [], P5: [] },
-				};
+							var data = {
+								teachers: {},
+								periods: {
+									Home: [],
+									BS: [],
+									P1: [],
+									P2: [],
+									P3: [],
+									P4: [],
+									P5: [],
+								},
+							};
 
-				var teachersElements = html.querySelectorAll(".fsPanel");
-				for (var teacherElement of teachersElements) {
-					var name = teacherElement.querySelector("h2.fsElementTitle a")
-						.innerText;
-					var linkElements = teacherElement.querySelectorAll(
-						"div.fsElementContent div.fsContent div.fsElementContent p"
-					);
-					var links = {
-						Home: "#",
-						BS: "#",
-						P1: "#",
-						P2: "#",
-						P3: "#",
-						P4: "#",
-						P5: "#",
-					};
+							var teachersElements = html.querySelectorAll(".fsPanel");
+							for (var teacherElement of teachersElements) {
+								var name = teacherElement
+									.querySelector("h2.fsElementTitle a")
+									.innerText.replace(/\//g, " & ")
+									.replace(/\./g, "");
+								var linkElements = teacherElement.querySelectorAll(
+									"div.fsElementContent div.fsContent div.fsElementContent p"
+								);
+								var links = {
+									Home: "#",
+									BS: "#",
+									P1: "#",
+									P2: "#",
+									P3: "#",
+									P4: "#",
+									P5: "#",
+								};
 
-					for (var periodElement of linkElements) {
-						var link = periodElement.querySelector("a");
-						if (link !== null) {
-							switch (link.innerText) {
-								case this.periodMap.Home:
-									links.Home = link.href;
-									data.periods.Home.push(name);
-									break;
-								case this.periodMap.BS:
-									links.BS = link.href;
-									data.periods.BS.push(name);
-									break;
-								case this.periodMap.P1:
-									links.P1 = link.href;
-									data.periods.P1.push(name);
-									break;
-								case this.periodMap.P2:
-									links.P2 = link.href;
-									data.periods.P2.push(name);
-									break;
-								case this.periodMap.P3:
-									links.P3 = link.href;
-									data.periods.P3.push(name);
-									break;
-								case this.periodMap.P4:
-									links.P4 = link.href;
-									data.periods.P4.push(name);
-									break;
-								case this.periodMap.P5:
-									links.P5 = link.href;
-									data.periods.P5.push(name);
-									break;
-								default:
-									console.log(
-										"UNKNOWN PERIOD FOUND:",
-										link.innerText,
-										" with ",
-										name
-									);
-									break;
+								for (var periodElement of linkElements) {
+									var link = periodElement.querySelector("a");
+									if (link !== null) {
+										switch (link.innerText) {
+											case this.periodMap.Home:
+												links.Home = link.href;
+												data.periods.Home.push(name);
+												break;
+											case this.periodMap.BS:
+												links.BS = link.href;
+												data.periods.BS.push(name);
+												break;
+											case this.periodMap.P1:
+												links.P1 = link.href;
+												data.periods.P1.push(name);
+												break;
+											case this.periodMap.P2:
+												links.P2 = link.href;
+												data.periods.P2.push(name);
+												break;
+											case this.periodMap.P3:
+												links.P3 = link.href;
+												data.periods.P3.push(name);
+												break;
+											case this.periodMap.P4:
+												links.P4 = link.href;
+												data.periods.P4.push(name);
+												break;
+											case this.periodMap.P5:
+												links.P5 = link.href;
+												data.periods.P5.push(name);
+												break;
+											default:
+												console.log(
+													"UNKNOWN PERIOD FOUND:",
+													link.innerText,
+													" with ",
+													name
+												);
+												break;
+										}
+									}
+								}
+								data.teachers[name] = { name, links };
 							}
-						}
-					}
-					data.teachers[name] = { name, links };
-				}
 
+							if (this.saveData) {
+								firebase
+									.database()
+									.ref("data")
+									.set(data)
+									.then(() => {
+										notification.open({
+											type: "success",
+											message: "Data has been saved",
+										});
+									});
+							}
+							resolve(data);
+						});
+					} else {
+						throw reject("Something went wrong. Try refreshing the page!");
+					}
+				});
+			}
+		})
+			.then((data) => {
 				console.log(data);
 				this.setState(
 					{ data },
@@ -507,7 +546,13 @@ class App extends React.Component {
 				notification.open({
 					type: "error",
 					message: "Error",
-					description: <p>Something went wrong. Try refreshing the page!</p>,
+					description: (
+						<p>
+							Something went wrong. Try refreshing the page!
+							<br />
+							{err.message}
+						</p>
+					),
 					duration: 0,
 				});
 			});

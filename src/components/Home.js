@@ -26,7 +26,9 @@ class Home extends React.Component {
 			.on(
 				"value",
 				function (snapshot) {
-					this.setState({ reg: snapshot.val(), loading: false });
+					if (typeof snapshot !== "undefined" && snapshot.exists()) {
+						this.setState({ reg: snapshot.val(), loading: false });
+					}
 				}.bind(this)
 			);
 	}

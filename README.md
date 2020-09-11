@@ -22,7 +22,11 @@ Firebase Realtime Database rules:
 				".write": "!data.exists()",
         ".validate": "newData.isBoolean()",
       }
-		}
+		},
+    "data": {
+      ".read": true,
+      ".write": false //toggle to true if saving new data from websites
+    }
 	}
 }
 
