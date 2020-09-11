@@ -11,7 +11,7 @@ This custom dashbaords feature:
 - Consolidated zoom links.
 - Your upcoming class will be displayed with its Zoom join button (based on your schedule and the current time).
 - Visting https://hazen.launchto.me/<YOUR_CUSTOM_URL>/go, will automatically redirected you to your upcoming class's zoom link.
-- Quick links to important sites such as Canvas, Hazen's website, schedule change form, etc.
+- Quick links to important sites such as Canvas, Hazen's website, etc.
 - Bell Schedule
 
 Zoom links are collected through web scraping [Hazen High School's website](https://hazen.rentonschools.us/class-of-2020/links-to-zoom-classrooms)<sup>2</sup>.

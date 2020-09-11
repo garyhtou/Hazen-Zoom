@@ -614,11 +614,6 @@ class App extends React.Component {
 
 	quickLinks = [
 		{
-			title: "Schedule Change (Due Sept. 8th)",
-			url:
-				"https://hazen.rentonschools.us/counseling/requesting-a-schedule-change-for-1st-trimester",
-		},
-		{
 			title: "Renton Canvas",
 			url: "https://rentonschools.instructure.com/",
 		},
@@ -1116,7 +1111,7 @@ class App extends React.Component {
 											title="Visit Hazen High School's Website"
 										>
 											<a
-												href="https://hazen.rentonschools.us/class-of-2020/links-to-zoom-classrooms"
+												href="https://hazen.rentonschools.us/"
 												draggable={false}
 												onClick={function () {
 													firebase.analytics().logEvent("visit_hazen", {

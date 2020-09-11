@@ -48,14 +48,21 @@ function Error() {
 		{
 			question: "How does this website get the zoom links?",
 			answer: (
-				<p>
-					It web scapes{" "}
-					<a href="https://hazen.rentonschools.us/class-of-2020/links-to-zoom-classrooms">
-						Hazen's website
-					</a>{" "}
-					everytime your visit the website. This means you will always have the
-					most updated link!
-				</p>
+				<>
+					<p>
+						It web scapes{" "}
+						<a href="https://hazen.rentonschools.us/class-of-2020/links-to-zoom-classrooms">
+							Hazen's website
+						</a>{" "}
+						everytime your visit the website. This means you will always have
+						the most updated link!
+					</p>
+					<p>
+						UPDATE: The zoom links were removed from Hazen's Website on
+						9/14/2020. The dashboards are currently using cached links from
+						9/11/2020 10am PDT.
+					</p>
+				</>
 			),
 		},
 		{
