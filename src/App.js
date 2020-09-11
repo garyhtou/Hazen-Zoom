@@ -580,7 +580,11 @@ class App extends React.Component {
 					// );
 					if (currentDate.isBetween(start, end)) {
 						console.log("CURRENTLY: " + period);
-						this.setState({ currPeriod: period });
+						if (this.state.myLinks[this.state.currPeriod] !== "#") {
+							this.setState({ currPeriod: period });
+						} else {
+							this.setState({ currPeriod: null });
+						}
 						return resolve(period);
 					}
 				}
@@ -792,40 +796,42 @@ class App extends React.Component {
 																	}.bind(this)()}
 																</>
 															) : (
-																<Button
-																	type="primary"
-																	className="user-joinNowButton"
-																	href="#"
-																	onClick={function () {
-																		firebase
-																			.analytics()
-																			.logEvent("join_current", {
-																				user: window.location.pathname.split(
-																					"/"
-																				)[1],
-																				teacher: this.state.myTeachers[
-																					this.state.currPeriod
-																				],
-																				link: this.state.myLinks[
-																					this.state.currPeriod
-																				],
-																			});
-																		window.location.href = this.state.myLinks[
-																			this.state.currPeriod
-																		];
-																	}.bind(this)}
-																>
-																	<p>
-																		{/* <img src="/zoom.png" alt="Zoom Logo" /> */}
-																		Join{" "}
-																		{
-																			this.state.myTeachers[
+																<>
+																	<Button
+																		type="primary"
+																		className="user-joinNowButton"
+																		href="#"
+																		onClick={function () {
+																			firebase
+																				.analytics()
+																				.logEvent("join_current", {
+																					user: window.location.pathname.split(
+																						"/"
+																					)[1],
+																					teacher: this.state.myTeachers[
+																						this.state.currPeriod
+																					],
+																					link: this.state.myLinks[
+																						this.state.currPeriod
+																					],
+																				});
+																			window.location.href = this.state.myLinks[
 																				this.state.currPeriod
-																			]
-																		}
-																		's Zoom
-																	</p>
-																</Button>
+																			];
+																		}.bind(this)}
+																	>
+																		<p>
+																			{/* <img src="/zoom.png" alt="Zoom Logo" /> */}
+																			Join{" "}
+																			{
+																				this.state.myTeachers[
+																					this.state.currPeriod
+																				]
+																			}
+																			's Zoom
+																		</p>
+																	</Button>
+																</>
 															)}
 														</div>
 														<div className="user-leftSection ">
