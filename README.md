@@ -1,6 +1,6 @@
 # Hazen Zoom
 
-Personalized class zoom link dashboard for students/teachers at Hazen High School<sup>1</sup>. Create your own dashboard at [https://hazen.launchto.me](https://hhszoom.garytou.com/)
+Personalized class zoom link dashboard for students/teachers at Hazen High School<sup>1</sup>. Create your own dashboard at [https://hhszoom.garytou.com/](https://hhszoom.garytou.com/)
 
 [**DEMO!**](https://hhszoom.garytou.com/demo)
 
